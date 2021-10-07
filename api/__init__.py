@@ -6,5 +6,5 @@ from .resourcesById import RESTResourceById
 
 restServerInstance = Api(flaskAppInstance)
 
-restServerInstance.add_resource(RESTResource, "/api/get")
-restServerInstance.add_resource(RESTResourceById, "/api/get/id/<string:identifier>")
+restServerInstance.add_resource(RESTResource, "/api")
+restServerInstance.add_resource(RESTResourceById, "/api/id/<string:identifier>")
