@@ -23,19 +23,19 @@ def delete_currency(char_code):
 
 def update_currency(char_code, **param):
     if len(param.keys()) > 2:
-        raise ValueError('слишком много параметров')
+        raise RuntimeError("wrong number of parameters received: '{}'".format(param))
     for name, val in param.items():
         if name != 'currency' and name != 'rate':
-            raise ValueError('неверное имя параметра')
+            raise ValueError('invalid value')
         if name == 'currency' and type(val) != str:
-            raise ValueError('неверный тип данных')
+            raise TypeError('invalid data type for "currency"')
         if name == 'rate' and type(val) != float:
-            raise ValueError('неверный тип данных')
+            raise TypeError('invalid data type for "rate"')
     count_upd = Currency.objects.raw({'char_code': char_code}).update({'$set': param})
     if count_upd == 1:
         return get_currency_by_code(char_code)
     else:
-        raise ValueError('неудалось обновить')
+        raise RuntimeError('failed to update')
 
 
 def is_char_code_unique(char_code):

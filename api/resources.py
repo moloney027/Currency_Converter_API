@@ -39,7 +39,7 @@ class CurrencyResource(Resource):
             new_currency = repo.create_currency(args['char_code'], args['currency'], args['rate'])
             return CurrencyDao(new_currency.char_code, new_currency.currency, new_currency.rate).__dict__
         else:
-            raise ValueError('не уникальный буквенный код')
+            raise RuntimeError("an object with this char_code already exists: '{}'".format(args['char_code']))
 
     def get(self):
         if request.args.get('char_code') is None:
@@ -56,7 +56,7 @@ class CurrencyResource(Resource):
             upd_currency = repo.update_currency(args['char_code'], currency=args['currency'], rate=args['rate'])
             return CurrencyDao(upd_currency.char_code, upd_currency.currency, upd_currency.rate).__dict__
         else:
-            raise ValueError('новый буквенный код. нужен post')
+            raise RuntimeError("an object with this char_code does not exist: '{}'".format(args['char_code']))
 
     def delete(self):
         ch_cd = request.args.get('char_code')
@@ -64,4 +64,4 @@ class CurrencyResource(Resource):
             repo.delete_currency(ch_cd)
             return {"message": "Done"}, 200
         else:
-            raise ValueError('неизвестный буквенный код')
+            raise ValueError("an object with this char_code does not exist: '{}'".format(ch_cd))
