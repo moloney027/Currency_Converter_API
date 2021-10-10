@@ -1,0 +1,1 @@
+db = db.getSiblingDB("exchange_rates");

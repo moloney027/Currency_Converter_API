@@ -1,3 +1,3 @@
 from pymodm import connect
 
-connect('mongodb://localhost:27017/exchange_rates')
+connect('mongodb://root:pass@test_mongodb:27017/exchange_rates?authSource=admin')

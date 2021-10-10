@@ -13,4 +13,4 @@ _initialize_error_handlers(flaskAppInstance)
 if __name__ == '__main__':
     from api import *
 
-    flaskAppInstance.run(debug=True, use_reloader=True)
+    flaskAppInstance.run(port=5000, host='0.0.0.0', debug=True, use_reloader=True)
